@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rushikesh Tubaji | Industrial Engineering & Supply Chain</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfolio of Rushikesh Tubaji – Industrial Engineering graduate student at UIC with experience in supply planning, logistics, and inventory optimization." />
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --text-main: #0f172a;
+      --text-muted: #6b7280;
+      --border-soft: #e5e7eb;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(248, 250, 252, 0.9);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-brand {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    section {
+      margin-top: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 1.75rem;
+      margin-top: 1.75rem;
+      align-items: center;
+    }
+
+    .hero-main-card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+    }
+
+    .hero-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-summary {
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      white-space: nowrap;
+    }
+
+    .hero-contact {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-contact a {
+      font-weight: 500;
+    }
+
+    .hero-side-card {
+      background: radial-gradient(circle at top left, #ccfbf1, #eff6ff);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border: 1px solid rgba(15, 118, 110, 0.12);
+    }
+
+    .hero-side-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-side-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+
+    .hero-side-bullets li {
+      margin-bottom: 0.4rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .skill-group-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .skill-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="nav-brand">Rushikesh Tubaji</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#certs">Certifications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ABOUT / HERO SECTION -->
+    <section id="about">
+      <div class="hero">
+        <div class="hero-main-card">
+          <h1 class="hero-title">Industrial Engineering Graduate & Supply Chain Analyst</h1>
+          <p class="hero-tagline">M.S. Industrial Engineering @ UIC • Supply planning, logistics & inventory optimization</p>
+
+          <p class="hero-summary">
+            Analytical Industrial Engineering graduate student at the University of Illinois Chicago with hands-on
+            experience in supply planning, logistics, and inventory optimization. Skilled in SAP, Excel, Power BI, and SQL
+            for forecasting demand, tracking SKU-level KPIs, and improving on-time delivery. Adept at applying Lean and
+            continuous-improvement methods to reduce costs and enhance operational efficiency.
+          </p>
+
+          <div class="chip-row">
+            <span class="chip">Supply Planning</span>
+            <span class="chip">Inventory Optimization</span>
+            <span class="chip">Logistics</span>
+            <span class="chip">Power BI</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Lean</span>
+          </div>
+
+          <div class="hero-contact">
+            📍 Chicago, IL (Open to relocation)<br />
+            ✉️ <a href="mailto:rushitubaji14@gmail.com">rushitubaji14@gmail.com</a> &nbsp;|&nbsp;
+            <a href="mailto:rtuba@uic.edu">rtuba@uic.edu</a><br />
+            🔗 <a href="https://www.linkedin.com/in/rushikesh-tubaji-8a6161232" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+
+        <aside class="hero-side-card">
+          <div class="hero-side-title">What I bring to a Supply Chain Role</div>
+          <ul class="hero-side-bullets">
+            <li>Hands-on logistics, warehouse, and procurement coordination experience.</li>
+            <li>Experienced with SAP ERP, Excel Solver, Power BI, SQL, and Minitab.</li>
+            <li>Strong cost reduction & process improvement using Lean and Six Sigma tools.</li>
+            <li>Proven record managing SKUs, optimizing planning, and increasing efficiency.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+      <h2 class="section-title">Skills & Tools</h2>
+      <p class="section-subtitle">Combining supply chain knowledge with analytics, simulation, and engineering tools.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="skill-group-title">Supply Chain & Operations</div>
+          <p class="skill-text">
+            Demand Forecasting, Supply Planning, Inventory Optimization, WMS, Procurement, Logistics Scheduling, KPI Tracking
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="skill-group-title">Data & Analytics</div>
+          <p class="skill-text">
+            Power BI, Excel (Solver/Pivots/VBA), SQL, Minitab, Python (pandas, NumPy), SPC, Data Visualization
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="skill-group-title">Engineering Tools</div>
+          <p class="skill-text">
+            SAP ERP, Arena Simulation, SolidWorks, AutoCAD, CATIA, Creo, ANSYS
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="skill-group-title">Methodologies</div>
+          <p class="skill-text">
+            Lean Manufacturing, Six Sigma (Green Belt in progress), RCA, DFMEA/PFMEA, Kaizen
+          </p>
+        </div>
+      </div>
+
