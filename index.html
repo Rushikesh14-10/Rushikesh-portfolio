@@ -86,9 +86,9 @@
     }
 
     main {
-      max-width: 1100px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 1.5rem 1.25rem 3rem;
+      padding: 1rem 1.25rem 3rem;
     }
 
     section {
@@ -111,8 +111,8 @@
       position: relative;            /* NEW: so we can layer background */
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
-      gap: 1.75rem;
-      margin-top: 1.75rem;
+      gap: 1rem;
+      margin-top: 1rem;
       align-items: center;
       overflow: hidden;              /* NEW: hide blob edges */
       min-height: 260px;
@@ -891,6 +891,101 @@ header {
   background: rgba(15, 15, 28, 0.75); /* Dark, transparent header */
   backdrop-filter: blur(10px);
 }
+/* --- CRITICAL QUICK FIX: FORCE RESTORE LIVE ANIMATION LAYERING --- */
+
+/* 1. Ensure the Parallax is positioned correctly (z-index) */
+.parallax-background {
+    z-index: -2 !important; /* Must be deep behind all content */
+}
+
+/* 2. Restore Semi-Transparent/Frosted Glass for the main content sections */
+/* 2. Restore Semi-Transparent/Frosted Glass for the main content sections */
+section {
+    z-index: 1 !important; /* Must be above the background */
+    
+    /* NEW: Layout Adjustments for Screen Fit */
+    margin: 40px auto !important; /* Reduced vertical margin */
+    max-width: 1200px !important; /* Increased width to fill screen */
+    padding: 40px 50px !important; /* Reduced horizontal padding */
+    
+    /* REPLACING SOLID COLOR with SEMI-TRANSPARENT DARK FROSTING (rgba(R,G,B, A)) */
+    background-color: rgba(255, 255, 255, 0.05) !important; 
+    
+    /* RESTORE CRUCIAL FROSTING EFFECT */
+    backdrop-filter: blur(8px) !important; 
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+/* --- ENHANCEMENT 11: Starry Night Effect --- */
+
+.stars-layer {
+    /* Set the star layer deep into the parallax scene, behind the mountains but in front of the aurora */
+    transform: translateZ(-1000px) scale(1001); 
+    opacity: 0.8;
+    background: transparent;
+    
+    /* Using multiple radial gradients for a dense, scattered star effect */
+    background-image: 
+        radial-gradient(1px 1px at 100px 200px, #ffffff, rgba(255, 255, 255, 0)),
+        radial-gradient(1.5px 1.5px at 300px 400px, #e0e7ff, rgba(255, 255, 255, 0)),
+        radial-gradient(0.5px 0.5px at 500px 100px, #f0f9ff, rgba(255, 255, 255, 0)),
+        radial-gradient(1px 1px at 750px 500px, #ffffff, rgba(255, 255, 255, 0)),
+        radial-gradient(1.2px 1.2px at 200px 650px, #e0e7ff, rgba(255, 255, 255, 0));
+
+    background-repeat: repeat;
+    background-size: 800px 800px; /* Repeating pattern size */
+    animation: starTwinkle 18s linear infinite; /* Subtle twinkling effect */
+}
+
+@keyframes starTwinkle {
+    0%, 100% { background-position: 0 0; }
+    50% { background-position: 100px 150px; } /* Slowly shifts the background to create movement */
+}
+/* 3. Restore Semi-Transparent/Frosted Glass for nested cards (Skills, Projects, Experience) */
+.card, .timeline-card, .hero-main-card, .hero-side-card {
+    /* Use a slightly darker, but still transparent background */
+    background-color: rgba(255, 255, 255, 0.08) !important; 
+    backdrop-filter: blur(4px) !important; 
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 4. Restore Navbar Transparency */
+header {
+  /* Dark, transparent header background */
+  background: rgba(15, 15, 28, 0.75) !important; 
+  backdrop-filter: blur(10px) !important;
+}
+/* --- CRITICAL LAYOUT OVERRIDE FIX: MAXIMIZE SCREEN SPACE --- */
+
+/* This targets the overall content wrapper */
+main {
+  /* Force a wider maximum width for the whole content area */
+  max-width: 1300px !important; 
+  /* Reduce padding to the sides */
+  padding-left: 1.5rem !important; 
+  padding-right: 1.5rem !important;
+}
+
+/* This targets the floating frosted content cards */
+section {
+  /* Force wider maximum width for the cards */
+  max-width: 1200px !important; 
+  /* Reduce side padding on the cards themselves */
+  padding-left: 50px !important; 
+  padding-right: 50px !important;
+  /* Adjust top/bottom margin */
+  margin-top: 40px !important;
+  margin-bottom: 40px !important;
+}
+
+/* Target the Hero section specifically to reduce internal gap */
+.hero {
+  gap: 1rem !important;
+}
+
+/* Ensure the navbar also uses the new max width */
+.nav {
+    max-width: 1300px !important;
+}
   </style>
 
 </head>
@@ -898,12 +993,13 @@ header {
 <body> 
   
   <div class="parallax-background">
-      <div class="parallax-layer clouds-layer-1"></div>
-      <div class="parallax-layer clouds-layer-2"></div>
-      <div class="parallax-layer mountains-layer"></div>
-      <div class="parallax-layer aurora-layer"></div>
-      <div class="parallax-layer dots-layer"></div>
-  </div>
+    <div class="parallax-layer clouds-layer-1"></div>
+    <div class="parallax-layer clouds-layer-2"></div>
+    <div class="parallax-layer mountains-layer"></div>
+    <div class="parallax-layer stars-layer"></div> 
+    <div class="parallax-layer aurora-layer"></div>
+    <div class="parallax-layer dots-layer"></div>
+</div>
   <header>
     <div class="aurora"></div>
     <body> 
@@ -917,8 +1013,6 @@ header {
     </div>
   </div>
   <header>
-    ...
-    ...
   <header>
     <div class="aurora"></div>
       <div class="nav-brand">Rushikesh Tubaji</div>
@@ -935,11 +1029,7 @@ header {
   </header>
 </header>
   
-  <div id="scroll-roadway">
-    <div id="scroll-truck">🚚</div>
-  </div>
-  <main>
-    ...
+  
   <main>
 
     <!-- ABOUT / HERO SECTION -->
