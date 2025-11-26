@@ -23,13 +23,14 @@
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background-color: var(--bg);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
+   body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: transparent !important; /* <--- THE FIX */
+  color: var(--text-main);
+  line-height: 1.6;
+  cursor: none; /* Keeps your custom cursor visible */
+}
 
     a {
       color: var(--accent);
@@ -565,96 +566,10 @@ body {
 }
 
 /* The dedicated container that handles the 3D perspective */
-.parallax-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    perspective: 1px; /* Establishes 3D perspective */
-    overflow: hidden;
-    z-index: -2;
-}
 
-/* Individual parallax layer base styles */
-.parallax-layer {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    pointer-events: none;
-    will-change: transform;
-}
-
-/* 2. Layer Definitions (Deepest to Closest) */
-
-/* AURORA LAYER (Farthest Back) */
-.aurora-layer {
-    background: linear-gradient(120deg, #121827, #211e51, #0a4f49, #331464); /* Muted Aurora */
-    animation: auroraSlide 30s ease-in-out infinite alternate;
-    background-size: 300% 300%;
-    transform: translateZ(-1500px) scale(1501); 
-    opacity: 0.8;
-}
-
-/* MOUNTAINS LAYER (Distant Horizon) */
-.mountains-layer {
-    /* Simple SVG for abstract mountains (Dark color: #1a1a33) */
-    background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1000 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 300L0 150Q125 50 250 150T500 100T750 200T1000 100L1000 300Z" fill="%231a1a33"/></svg>');
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% 40%;
-    transform: translateZ(-800px) scale(801);
-    opacity: 0.9;
-}
-
-/* CLOUDS LAYER 2 (Further Clouds) */
-.clouds-layer-2 {
-    /* Abstract white clouds with blur (Lo-Fi effect) */
-    background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1000 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs><filter id="f1" x="0" y="0" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="20" /></filter></defs><ellipse cx="250" cy="100" rx="150" ry="40" fill="%23F0F9FF" filter="url(%23f1)" opacity="0.1"/><ellipse cx="750" cy="120" rx="180" ry="50" fill="%23F0F9FF" filter="url(%23f1)" opacity="0.08"/><ellipse cx="500" cy="80" rx="100" ry="30" fill="%23F0F9FF" filter="url(%23f1)" opacity="0.07"/></svg>');
-    background-repeat: repeat-x;
-    background-position: top center;
-    background-size: 50% auto;
-    animation: cloudMove 80s linear infinite alternate;
-    transform: translateZ(-400px) scale(401); 
-    opacity: 0.5;
-}
-
-/* CLOUDS LAYER 1 (Closer Clouds) */
-.clouds-layer-1 {
-    background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1000 250" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs><filter id="f2" x="0" y="0" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="15" /></filter></defs><ellipse cx="100" cy="150" rx="200" ry="60" fill="%23F0F9FF" filter="url(%23f2)" opacity="0.15"/><ellipse cx="600" cy="100" rx="250" ry="70" fill="%23F0F9FF" filter="url(%23f2)" opacity="0.12"/><ellipse cx="900" cy="180" rx="180" ry="50" fill="%23F0F9FF" filter="url(%23f2)" opacity="0.1"/></svg>');
-    background-repeat: repeat-x;
-    background-position: top center;
-    background-size: 60% auto;
-    animation: cloudMove 60s linear infinite alternate;
-    transform: translateZ(-200px) scale(201);
-    opacity: 0.6;
-}
-
-/* DOTS LAYER (Closest Background) - Network Visual */
-.dots-layer {
-    background: 
-        radial-gradient(circle, #f0f9ff 1px, transparent 1px) 0 0 / 40px 40px,
-        radial-gradient(circle, #f0f9ff 1px, transparent 1px) 20px 20px / 40px 40px;
-    background-color: transparent;
-    opacity: 1; 
-    animation: networkPulse 8s ease-in-out infinite alternate;
-    transform: translateZ(-50px) scale(51); 
-}
 
 /* 3. Keyframes */
-@keyframes cloudMove {
-    0% { background-position-x: 0%; }
-    100% { background-position-x: 100%; }
-}
-@keyframes auroraSlide {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-@keyframes networkPulse {
-    0% { opacity: 1; }
-    100% { opacity: 1; }
-}
+
 
 /* 4. Content Card Overrides for Frosted Glass Effect (Crucial) */
 main {
@@ -669,7 +584,7 @@ section {
     padding: 60px;
     border-radius: var(--radius);
     /* Frosted Glass Effect */
-    background-color: var(--card-bg); 
+    background-color:transparent var(--card-bg); 
     box-shadow: var(--shadow-soft); 
     backdrop-filter: blur(8px); 
     -webkit-backdrop-filter: blur(8px);
@@ -909,36 +824,15 @@ section {
     padding: 40px 50px !important; /* Reduced horizontal padding */
     
     /* REPLACING SOLID COLOR with SEMI-TRANSPARENT DARK FROSTING (rgba(R,G,B, A)) */
-    background-color: rgba(255, 255, 255, 0.05) !important; 
+    background-color: rgba(10, 10, 15, 0.6) !important; 
     
     /* RESTORE CRUCIAL FROSTING EFFECT */
     backdrop-filter: blur(8px) !important; 
     -webkit-backdrop-filter: blur(8px) !important;
 }
-/* --- ENHANCEMENT 11: Starry Night Effect --- */
-
-.stars-layer {
-    /* Set the star layer deep into the parallax scene, behind the mountains but in front of the aurora */
-    transform: translateZ(-1000px) scale(1001); 
-    opacity: 0.8;
-    background: transparent;
-    
-    /* Using multiple radial gradients for a dense, scattered star effect */
-    background-image: 
-        radial-gradient(1px 1px at 100px 200px, #ffffff, rgba(255, 255, 255, 0)),
-        radial-gradient(1.5px 1.5px at 300px 400px, #e0e7ff, rgba(255, 255, 255, 0)),
-        radial-gradient(0.5px 0.5px at 500px 100px, #f0f9ff, rgba(255, 255, 255, 0)),
-        radial-gradient(1px 1px at 750px 500px, #ffffff, rgba(255, 255, 255, 0)),
-        radial-gradient(1.2px 1.2px at 200px 650px, #e0e7ff, rgba(255, 255, 255, 0));
-
-    background-repeat: repeat;
-    background-size: 800px 800px; /* Repeating pattern size */
-    animation: starTwinkle 18s linear infinite; /* Subtle twinkling effect */
-}
-
-@keyframes starTwinkle {
-    0%, 100% { background-position: 0 0; }
-    50% { background-position: 100px 150px; } /* Slowly shifts the background to create movement */
+html {
+    background-color: transparent !important;
+    height: 100%;
 }
 /* 3. Restore Semi-Transparent/Frosted Glass for nested cards (Skills, Projects, Experience) */
 .card, .timeline-card, .hero-main-card, .hero-side-card {
@@ -986,31 +880,114 @@ section {
 .nav {
     max-width: 1300px !important;
 }
+/* --- NEW STARRY NIGHT 3D BACKGROUND --- */
+
+/* 1. The 3D Canvas Container */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1; /* Puts it behind everything */
+    pointer-events: none;
+    background-color: #030305; /* Deep Space Black */
+}
+
+/* 2. Cinematic Grain Overlay */
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0; /* Just above background, below content */
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+html {
+    background-color: transparent !important;
+    height: 100%;
+}
+/* 3. The Gold Cursor Follower */
+body {
+    cursor: none; /* Hide default cursor */
+}
+
+.cursor-follower {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: #D4AF37; /* Gold color */
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: exclusion;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.8;
+    filter: blur(2px);
+}
+
+.cursor-active {
+    width: 60px;
+    height: 60px;
+    opacity: 0.3;
+    background: #ffffff;
+}
+
+/* 4. Lenis Smooth Scroll Fixes */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-stopped { overflow: hidden; }
+/* --- SPACE THEME TRANSPARENCY FIX --- */
+
+/* 1. Make all cards and sections transparent dark glass */
+section, .hero-main-card, .hero-side-card, .card, .timeline-card, .project-card {
+    /* Very see-through dark tint */
+    background: rgba(10, 10, 15, 0.6) !important; 
+    /* Minimal blur so you can still see stars behind */
+    backdrop-filter: blur(3px) !important; 
+    -webkit-backdrop-filter: blur(3px) !important;
+    /* Subtle Gold Border to match the stars */
+    border: 1px solid rgba(212, 175, 55, 0.15) !important; 
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 2. Specifically remove the old purple gradient from the side card */
+.hero-side-card {
+    background: rgba(10, 10, 15, 0.6) !important;
+    background-image: none !important;
+}
+
+/* 3. Make text pop against the stars */
+h1, h2, h3, h4, h5, p, span, li, a {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+/* 4. Fix Navbar to be transparent space-black */
+header {
+    background: rgba(3, 3, 5, 0.85) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+}
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
 </head>
 
-<body> 
-  
-  <div class="parallax-background">
-    <div class="parallax-layer clouds-layer-1"></div>
-    <div class="parallax-layer clouds-layer-2"></div>
-    <div class="parallax-layer mountains-layer"></div>
-    <div class="parallax-layer stars-layer"></div> 
-    <div class="parallax-layer aurora-layer"></div>
-    <div class="parallax-layer dots-layer"></div>
-</div>
+<body>
+    <div id="canvas-container"></div>
+    <div class="grain-overlay"></div>
+    <div class="cursor-follower" id="cursor"></div>
   <header>
     <div class="aurora"></div>
     <body> 
   
   <div class="parallax-background">...</div> 
-
-  <div id="loading-screen">
-    <div class="loader-container">
-      <div class="loader-box">📦</div> 
-      <div class="loader-text">Initializing Supply Chain Model...</div>
-    </div>
+  
   </div>
   <header>
   <header>
@@ -1055,9 +1032,9 @@ section {
             <span class="chip">Lean</span>
           </div>
           <div class="hero-actions">
-  <a class="btn-primary" href="/Rushikesh-portfolio/Rushikesh_Tubaji_Resume.pdf" target="_blank">
-  Download Resume
-</a>
+  <a class="btn-primary" href="Rushikesh_Tubaji_Resume.pdf" target="_blank">
+    Download Resume
+  </a>
 
   <a class="btn-ghost" href="#projects">
     View My Projects
@@ -1400,75 +1377,150 @@ section {
   </footer>
 
  <script>
-    // 1. Immediately add the loading class to the body
-    document.body.classList.add('loading');
-
-    document.addEventListener("DOMContentLoaded", () => {
-      
-      // --- 2. SCROLL REVEAL LOGIC (Kept) ---
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("reveal-visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.15
-        }
-      );
-
-      document.querySelectorAll("[data-animate]").forEach((el, index) => {
-        el.classList.add("reveal-section");
-        el.style.transitionDelay = `${index * 0.08}s`;
-        observer.observe(el);
-      });
-      // --- END SCROLL REVEAL ---
-
-
-      // --- 3. LOADER REMOVAL LOGIC (Revised) ---
-      // Wait 2.5 seconds (2500ms) to ensure the animation is visible
-      setTimeout(() => {
-        const loadingScreen = document.getElementById('loading-screen');
-        
-        // Step 1: Remove the content-hiding class and start the loader fade-out
-        document.body.classList.remove('loading'); // Show content now
-        document.body.classList.add('loaded');      // Start loader opacity: 1
-
-        // Step 2: Fully remove the element after the CSS fade-out transition (0.8s) is complete
-        if (loadingScreen) {
-          setTimeout(() => {
-             loadingScreen.remove();
-          }, 800);
-        }
-      }, 2500); // Increased initial viewing time to 2.5 seconds
-
+    // --- 1. SMOOTH SCROLLING ENGINE ---
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        smooth: true,
     });
 
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
 
-    // --- 4. SCROLL TRUCK TRACKING (Kept) ---
-    const truck = document.getElementById('scroll-truck');
-
-    function updateScrollTruck() {
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPosition = window.scrollY;
-        const scrollProgress = scrollPosition / totalHeight;
-        
-        const truckTravelWidth = window.innerWidth - 50; 
-        const truckX = scrollProgress * truckTravelWidth;
-        
-        if (truck) {
-            truck.style.transform = `translateX(${truckX}px)`;
-        }
+    // --- 2. THEME TOGGLE (Keep your existing feature) ---
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
     }
 
-    window.addEventListener('scroll', updateScrollTruck);
-    window.addEventListener('load', updateScrollTruck);
-    // --- END SCROLL TRUCK TRACKING ---
-  </script>
+    // --- 3. THE 3D STARFIELD ENGINE ---
+    const initThreeJS = () => {
+        const container = document.getElementById('canvas-container');
+        
+        // Safety Check
+        if (!container) {
+            console.error("Canvas container not found!");
+            return;
+        }
 
+        // Scene Setup
+        const scene = new THREE.Scene();
+        // Fog blends distant stars into the background color
+        scene.fog = new THREE.FogExp2(0x030305, 0.002); 
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 20;
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // Clear old canvas if it exists (prevents duplicates)
+        container.innerHTML = ''; 
+        container.appendChild(renderer.domElement);
+
+        // Create Stars
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 3000; // Increased star count
+        
+        const posArray = new Float32Array(particlesCount * 3);
+        const sizesArray = new Float32Array(particlesCount);
+        const colorsArray = new Float32Array(particlesCount * 3);
+
+        const color1 = new THREE.Color('#ffffff'); // White
+        const color2 = new THREE.Color('#D4AF37'); // Gold
+
+        for(let i = 0; i < particlesCount * 3; i+=3) {
+            // Spread stars wider
+            posArray[i] = (Math.random() - 0.5) * 80; 
+            posArray[i+1] = (Math.random() - 0.5) * 80;
+            posArray[i+2] = (Math.random() - 0.5) * 80;
+
+            const mixedColor = Math.random() > 0.8 ? color2 : color1;
+            colorsArray[i] = mixedColor.r;
+            colorsArray[i+1] = mixedColor.g;
+            colorsArray[i+2] = mixedColor.b;
+        }
+        
+        for(let i = 0; i < particlesCount; i++) {
+            sizesArray[i] = Math.random();
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizesArray, 1));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+
+        // STAR MATERIAL (Crucial for visibility)
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.25, // INCREASED SIZE to make sure you see them
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.9,
+        });
+
+        const starMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(starMesh);
+
+        // Animation Loop
+        let speed = 0;
+        let targetSpeed = 0;
+        const clock = new THREE.Clock();
+
+        lenis.on('scroll', (e) => {
+            targetSpeed = e.velocity * 0.005;
+        });
+
+        const animate = () => {
+            const elapsedTime = clock.getElapsedTime();
+            speed += (targetSpeed - speed) * 0.1;
+            
+            starMesh.rotation.y = elapsedTime * 0.05; 
+            starMesh.rotation.x = elapsedTime * 0.01;
+            starMesh.rotation.z += speed * 0.2; 
+            
+            targetSpeed *= 0.95;
+            
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        };
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    };
+
+    // Start the stars
+    initThreeJS();
+
+    // --- 4. CUSTOM CURSOR LOGIC ---
+    const cursor = document.getElementById('cursor');
+    if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1,
+                ease: 'power2.out'
+            });
+        });
+
+        const interactiveElements = document.querySelectorAll('a, button, .card');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-active'));
+        });
+    }
+</script>
 </body>
 </html>
 
