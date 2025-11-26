@@ -980,13 +980,8 @@ header {
 
 <body>
     <div id="canvas-container"></div>
-    <div class="grain-overlay"></div>
     <div class="cursor-follower" id="cursor"></div>
-  <header>
-    <div class="aurora"></div>
-    <body> 
-  
-  <div class="parallax-background">...</div> 
+ 
   
   </div>
   <header>
@@ -1376,22 +1371,25 @@ header {
     © 2025 · Built by Rushikesh Tubaji · Hosted on GitHub Pages
   </footer>
 
- <script>
-    // --- 1. SMOOTH SCROLLING ENGINE ---
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+<script>
+    // --- 1. SMOOTH SCROLLING ---
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         smooth: true,
     });
-
     function raf(time) {
         lenis.raf(time);
         requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
 
-    // --- 2. THEME TOGGLE (Keep your existing feature) ---
+    // --- 2. THEME TOGGLE ---
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
@@ -1399,20 +1397,28 @@ header {
         });
     }
 
-    // --- 3. THE 3D STARFIELD ENGINE ---
+    // --- 3. HELPER: CREATE CIRCLE TEXTURE (Fixes the Square Stars) ---
+    function createStarTexture() {
+        const matCanvas = document.createElement('canvas');
+        matCanvas.width = matCanvas.height = 32;
+        const matContext = matCanvas.getContext('2d');
+        // Create a gradient for a soft glow effect
+        const gradient = matContext.createRadialGradient(16, 16, 0, 16, 16, 16);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        matContext.fillStyle = gradient;
+        matContext.fillRect(0,0,32,32);
+        return new THREE.CanvasTexture(matCanvas);
+    }
+
+    // --- 4. THE 3D STARFIELD ENGINE ---
     const initThreeJS = () => {
         const container = document.getElementById('canvas-container');
-        
-        // Safety Check
-        if (!container) {
-            console.error("Canvas container not found!");
-            return;
-        }
+        if (!container) return;
 
-        // Scene Setup
         const scene = new THREE.Scene();
-        // Fog blends distant stars into the background color
-        scene.fog = new THREE.FogExp2(0x030305, 0.002); 
+        // Lower fog density for clearer stars
+        scene.fog = new THREE.FogExp2(0x030305, 0.0005); 
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 20;
@@ -1421,13 +1427,12 @@ header {
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         
-        // Clear old canvas if it exists (prevents duplicates)
         container.innerHTML = ''; 
         container.appendChild(renderer.domElement);
 
         // Create Stars
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 3000; // Increased star count
+        const particlesCount = 3000;
         
         const posArray = new Float32Array(particlesCount * 3);
         const sizesArray = new Float32Array(particlesCount);
@@ -1437,7 +1442,6 @@ header {
         const color2 = new THREE.Color('#D4AF37'); // Gold
 
         for(let i = 0; i < particlesCount * 3; i+=3) {
-            // Spread stars wider
             posArray[i] = (Math.random() - 0.5) * 80; 
             posArray[i+1] = (Math.random() - 0.5) * 80;
             posArray[i+2] = (Math.random() - 0.5) * 80;
@@ -1456,12 +1460,15 @@ header {
         particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizesArray, 1));
         particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
 
-        // STAR MATERIAL (Crucial for visibility)
+        // APPLY THE ROUND TEXTURE HERE
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.25, // INCREASED SIZE to make sure you see them
+            size: 0.5, // Size of the stars
             vertexColors: true,
+            map: createStarTexture(), // <--- This turns squares into circles
             transparent: true,
-            opacity: 0.9,
+            opacity: 1.0,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending // Makes them glow when overlapping
         });
 
         const starMesh = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -1499,10 +1506,9 @@ header {
         });
     };
 
-    // Start the stars
     initThreeJS();
 
-    // --- 4. CUSTOM CURSOR LOGIC ---
+    // --- 5. CUSTOM CURSOR ---
     const cursor = document.getElementById('cursor');
     if (cursor) {
         document.addEventListener('mousemove', (e) => {
@@ -1513,7 +1519,6 @@ header {
                 ease: 'power2.out'
             });
         });
-
         const interactiveElements = document.querySelectorAll('a, button, .card');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
